@@ -8,11 +8,17 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ApiResource(
+ *      itemOperations={
+ *          "get",
+ *          "post"={"access_control"="is_granted('POST', object)"},
+ *          "put"={"access_control"="is_granted('PUT', object)"},
+ *          "delete"={"access_control"="is_granted('DELETE', object)"}
+ *      },
  *      collectionOperations={
  *          "get",
  *          "post"={"access_control"="is_granted('POST', object)"}
  *      }
- *)
+ *),
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
 class User implements UserInterface
@@ -151,6 +157,18 @@ class User implements UserInterface
     public function setRole(?role $role): self
     {
         $this->role = $role;
+
+        return $this;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
 
         return $this;
     }

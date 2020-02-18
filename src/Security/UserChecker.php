@@ -7,24 +7,24 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AccountStatusException;
 use Symfony\Component\Security\Core\Exception\AccountExpiredException;
-
+ 
 class UserChecker implements UserCheckerInterface
 {
-    public function checkerPreAuth(UserInterface $user)
+    public function checkPreAuth(UserInterface $user)
     {
-        if (!$user instanceof AppUser){
+        if (!$user instanceof AppUser) {
             return false;
         }
     }
-
-    public function checkPosteAuth(UserInterface $user)
+ 
+    public function checkPostAuth(UserInterface $user)
     {
-        if(!$user instanceof AppUser){
+        if (!$user instanceof AppUser) { 
             return;
         }
-
-        if(!$user->getIsActive()){
-            throw new AccountExpiredException();
+ 
+        if (!$user->getIsActive()) {
+            throw new AccountExpiredException();            
         }
     }
 }
